@@ -36,10 +36,20 @@ class NetworkManager(private val listener:onNetworkResponse) {
 
     private fun fetchQueryMap(message: String, senderName: String): Map<String,String> {
         val queryMap = HashMap<String,String>()
-        queryMap[StringConstants.apiKey] = StringConstants.apiKeyValue
-        queryMap[StringConstants.message] = message
-        queryMap[StringConstants.chatBotID] = StringConstants.chatBotIDValue
-        queryMap[StringConstants.externalID] = senderName
+        queryMap[StringConstants.APIKEY] = StringConstants.API_KEY_VALUE
+        queryMap[StringConstants.MESSAGE] = message
+        when(senderName){
+            StringConstants.PERSON_ONE -> {
+                queryMap[StringConstants.CHAT_BOT_ID] = StringConstants.CHAT_BOT_ID_ONE
+            }
+            StringConstants.PERSON_TWO -> {
+                queryMap[StringConstants.CHAT_BOT_ID] = StringConstants.CHAT_BOT_ID_TWO
+            }
+            StringConstants.PERSON_THREE -> {
+                queryMap[StringConstants.CHAT_BOT_ID] = StringConstants.CHAT_BOT_ID_THREE
+            }
+        }
+        queryMap[StringConstants.EXTERNAL_ID] = senderName
         return queryMap
     }
 
