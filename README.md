@@ -1,4 +1,3 @@
-PROBLEM STATEMENT
 A single activity app to Initiate a Chat with a Bot
 
 
