@@ -16,9 +16,9 @@ class PreferenceManager(val mContext: Context) {
     }
 
     fun saveChatForLater(name: String, chatHistory: String, type: String) {
+        preferenceEditor = sharedPreferences.edit()
         when (name) {
             StringConstants.PERSON_ONE -> {
-                preferenceEditor = sharedPreferences.edit()
                 if (type == StringConstants.SENT) {
                     preferenceEditor.putString(
                         StringConstants.SHARED_PREF_FOR_AMAR_SENT,
@@ -30,10 +30,8 @@ class PreferenceManager(val mContext: Context) {
                         chatHistory
                     )
                 }
-                preferenceEditor.apply()
             }
             StringConstants.PERSON_TWO -> {
-                preferenceEditor = sharedPreferences.edit()
                 if (type == StringConstants.SENT) {
                     preferenceEditor.putString(
                         StringConstants.SHARED_PREF_FOR_AKBAR_SENT,
@@ -45,10 +43,8 @@ class PreferenceManager(val mContext: Context) {
                         chatHistory
                     )
                 }
-                preferenceEditor.apply()
             }
             StringConstants.PERSON_THREE -> {
-                preferenceEditor = sharedPreferences.edit()
                 if (type == StringConstants.SENT) {
                     preferenceEditor.putString(
                         StringConstants.SHARED_PREF_FOR_ANTHONY_SENT,
@@ -60,9 +56,9 @@ class PreferenceManager(val mContext: Context) {
                         chatHistory
                     )
                 }
-                preferenceEditor.apply()
             }
         }
+        preferenceEditor.apply()
     }
 
     fun getSentChatForLater(name:String):String{
@@ -95,5 +91,52 @@ class PreferenceManager(val mContext: Context) {
             }
         }
         return offlineChat
+    }
+
+    fun saveOfflineChatForLater(name: String, chatHistory: String){
+        preferenceEditor = sharedPreferences.edit()
+        when(name){
+            StringConstants.PERSON_ONE -> {
+                preferenceEditor.putString(StringConstants.SHARED_PREF_FOR_AMAR_OFFLINE_SENT, chatHistory)
+            }
+            StringConstants.PERSON_TWO -> {
+                preferenceEditor.putString(StringConstants.SHARED_PREF_FOR_AKBAR_OFFLINE_SENT, chatHistory)
+            }
+            StringConstants.PERSON_THREE -> {
+                preferenceEditor.putString(StringConstants.SHARED_PREF_FOR_ANTHONY_OFFLINE_SENT, chatHistory)
+            }
+        }
+        preferenceEditor.apply()
+    }
+
+    fun getOfflineChatForLater(name: String):String{
+        var offlineChat = ""
+        when(name){
+            StringConstants.PERSON_ONE -> {
+                offlineChat = sharedPreferences.getString(StringConstants.SHARED_PREF_FOR_AMAR_OFFLINE_SENT,"").toString()
+            }
+            StringConstants.PERSON_TWO -> {
+                offlineChat = sharedPreferences.getString(StringConstants.SHARED_PREF_FOR_AKBAR_OFFLINE_SENT,"").toString()
+            }
+            StringConstants.PERSON_THREE -> {
+                offlineChat = sharedPreferences.getString(StringConstants.SHARED_PREF_FOR_ANTHONY_OFFLINE_SENT,"").toString()
+            }
+        }
+        return offlineChat
+    }
+
+    fun removeValueFromSharedPref(name:String){
+        preferenceEditor = sharedPreferences.edit()
+        when(name){
+            StringConstants.PERSON_ONE -> {
+                preferenceEditor.remove(StringConstants.SHARED_PREF_FOR_AMAR_OFFLINE_SENT).apply()
+            }
+            StringConstants.PERSON_TWO -> {
+                preferenceEditor.remove(StringConstants.SHARED_PREF_FOR_AKBAR_OFFLINE_SENT).apply()
+            }
+            StringConstants.PERSON_THREE -> {
+                preferenceEditor.remove(StringConstants.SHARED_PREF_FOR_ANTHONY_OFFLINE_SENT).apply()
+            }
+        }
     }
 }
